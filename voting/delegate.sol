@@ -5,6 +5,8 @@ contract Delegate {
     
     // The total votes by delegates
     uint256 public totalVotes = 0;
+    // The district in-charged by these delegate
+    string public district;
     
     // Voting proposals for each delegate
     mapping (address => bool) public isDelegateVoted;
@@ -27,7 +29,7 @@ contract Delegate {
         _;
     }
     
-    constructor(address[] _delegates) 
+    constructor(address[] _delegates, string _district) 
         public
     {
         for (uint i = 0; i<_delegates.length; i++) {
@@ -35,6 +37,7 @@ contract Delegate {
             isDelegate[_delegates[i]] = true;
             delegates.push(_delegates[i]);
         }
+        district = _district;
     }
     
     function vote()
