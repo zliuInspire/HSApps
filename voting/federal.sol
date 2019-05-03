@@ -3,9 +3,10 @@ pragma solidity 0.4.22;
 contract Federal {
     
     address public manager;
-    uint256 public totalVotes;
+    uint256 public collectedVotes;
+    
+    mapping (string => uint256) collectedVotesPerDistinct;
 
-    mapping (string => uint256) collectedVotes;
     
     modifier managerOnly(address _sender) {
         require(_sender == manager);
@@ -22,11 +23,11 @@ contract Federal {
         managerOnly(msg.sender)
     {
         assert(_votes > 0);
-        collectedVotes[_district] = safeAdd(collectedVotes[_district], _votes);
-        totalVotes = safeAdd(totalVotes, _votes);
+        collectedVotesPerDistinct[_district] = safeAdd(collectedVotesPerDistinct[_district], _votes);
+        collectedVotes = safeAdd(collectedVotes, _votes);
     }
     
-        function safeAdd(uint256 a, uint256 b) 
+    function safeAdd(uint256 a, uint256 b) 
         internal 
         pure 
         returns (uint256 ) 
