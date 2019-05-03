@@ -3,8 +3,9 @@ pragma solidity 0.4.22;
 contract Federal {
     
     address public manager;
-    mapping (string => uint256) public collectedVotes;
     uint256 public totalVotes;
+
+    mapping (string => uint256) collectedVotes;
     
     modifier managerOnly(address _sender) {
         require(_sender == manager);
