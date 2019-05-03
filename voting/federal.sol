@@ -5,7 +5,7 @@ contract Federal {
     address public manager;
     uint256 public collectedVotes;
     
-    mapping (string => uint256) collectedVotesPerDistinct;
+    mapping (string => uint256) collectedVotesPerDistrict;
 
     
     modifier managerOnly(address _sender) {
@@ -23,7 +23,7 @@ contract Federal {
         managerOnly(msg.sender)
     {
         assert(_votes > 0);
-        collectedVotesPerDistinct[_district] = safeAdd(collectedVotesPerDistinct[_district], _votes);
+        collectedVotesPerDistrict[_district] = safeAdd(collectedVotesPerDistrict[_district], _votes);
         collectedVotes = safeAdd(collectedVotes, _votes);
     }
     
