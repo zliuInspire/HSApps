@@ -5,36 +5,9 @@ contract Federal {
     address public manager;
     mapping (string => uint256) public collectedVotes;
     uint256 public totalVotes;
-
-    uint constant public MAX_OWNER_COUNT = 50;
-    uint constant public MAX_VALUE_PROPOSAL_COUNT = 5;
-    
-    // The authorative ouput provided by this Broker contracts.
-    uint public genuineValue;
-    
-    // The Broker contract is owned by multple entities to ensure security. 
-    mapping (address => bool) public isOwner;
-    address[] public owners;
-    uint public requiredOwnerCount;
-    
-    // Votes by the owners for a specific price value.
-    mapping (uint => mapping (address => bool)) public valueVotes;
-    uint[] public valueProposals;
-    
-    // Maps used for adding and removing owners. 
-    mapping (address => mapping (address => bool)) public addingOwnerProposal;
-    mapping (address => mapping (address => bool)) public removingOwnerProposal;
     
     modifier managerOnly(address _sender) {
         require(_sender == manager);
-        _;
-    }
-    
-    modifier validRequirement(uint ownerCount, uint _requiredOwner) {
-        require(ownerCount < MAX_OWNER_COUNT);
-        require(_requiredOwner <= ownerCount);
-        require(_requiredOwner != 0);
-        require(ownerCount != 0);
         _;
     }
     
