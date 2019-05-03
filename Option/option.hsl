@@ -1,0 +1,18 @@
+import “broker.sol” 
+import “option.vy” # convert according to the option.sol
+import “option.go # convert according to the option.sol
+
+account a1 = EthereumX::Account(0x...)
+account a2 = EthereumY::Account(0x...,)
+account a3 = Tendermint::Account(0x...) # Assume that token on Tendermint is XYZ
+contract c1 = EthereumX::Broker(0x...)
+contract c2 = EthereumY::Option(0x...)
+contract c3 = Tendermint::Option(0x...)
+
+op op1 invocation c1.GetStrikePrice() using a1
+op op2 invocation c2.CashSettle(10, c1.StrikePrice) using a2
+op op3 payment 10 ether from a1 to a2 with 1 ether as 2 XYZ # this defines the token exchange rate
+op op4 invocation c3.CashSettle(5, c1.StrikePrice) using a3
+
+op1 before op2, op3
+op3 before op4
