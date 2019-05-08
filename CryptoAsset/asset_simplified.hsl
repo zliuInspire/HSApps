@@ -1,0 +1,12 @@
+# Only one contract is involved in this dApp
+
+import "asset.sol" 
+
+account a1 = EthereumX::Account(0x...)
+account a2 = Tendermint::Account(0x...,)
+contract c1 = EthereumX::CryptoAsset(0x...)
+
+op op1 payment 20 XYZ from a2 to a1 with 1 XYZ as 0.5 ether # this defines the token exchange rate
+op op2 invocation c1.deposit(10) using a1 
+
+op1 before op2
