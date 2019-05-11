@@ -1,0 +1,12 @@
+import “broker.sol” 
+import “option.go # convert according to the option.sol
+
+account a1 = EthereumX::Account(0x...)
+account a2 = Tendermint::Account(0x...) # Assume that token on Tendermint is XYZ
+contract c1 = EthereumX::Broker(0x...)
+contract c2 = Tendermint::Option(0x...)
+
+op op1 invocation c1.GetStrikePrice() using a1
+op op2 invocation c2.CashSettle(10, c1.StrikePrice) using a2
+
+op1 before op2
