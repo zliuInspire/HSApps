@@ -1,0 +1,14 @@
+# Overall design: two delelegate contracts and one federated contract. 
+
+import "federal.sol"
+import “delegate.go” # needs to be converted from delegate.sol
+
+account a1 = EthereumX::Account(0x...)
+account a2 = Tendermint::Account(0x...)
+contract c1 = EthereumX::Federal(0x...)
+contract c2 = Tendermint::Delegate(0x...)
+
+op op1 invocation c2.vote() using a2
+op op2 invocation c1.submitVotes(c2.district, c2.totalVotes) using a1
+
+op1 before op2
